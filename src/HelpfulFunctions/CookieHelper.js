@@ -15,3 +15,7 @@ export const RetrieveCookie = (tokenName) => {
     }
     return tokenString;
 }
+
+export const DeleteCookie = (name, path) => {
+    document.cookie = `${name}=;path=${path};expires=Thu, 01 Jan 1970 00:00:01 GMT`;
+}

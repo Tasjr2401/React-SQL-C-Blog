@@ -27,6 +27,7 @@ const CreateAccount = () => {
         e.preventDefault();
         if(password !== checkPassword){
             alert('Passwords did not match');
+            return;
         }
         
         if(username.length > 8 && password.length > 8 && username.match('\\d') && firstName.match('\\W') && lastName.match('\\W')) {
@@ -42,7 +43,8 @@ const CreateAccount = () => {
         }
 
         axios.post(LocalApiUrl + '/LogIn/CreateUser', accountInfo).then((response) => {
-            if(response.data.Success === true) {
+            console.log(response);
+            if(response.data.success === true) {
                 window.location.pathname = '/LogIn';
             } else {
                 alert("Something went wrong on our end.");
