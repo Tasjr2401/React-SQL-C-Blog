@@ -1,6 +1,8 @@
+import axios from "axios";
 import react, {useState} from "react";
 import reactDom from "react-dom";
 import { useEffect } from "react/cjs/react.production.min";
+import { LocalApiUrl } from "../HelpfulFunctions/Constants";
 
 export const ManageUsers = () => {
     const [search, setSearch] = useState("");
@@ -11,6 +13,16 @@ export const ManageUsers = () => {
     }
     function handleUserSearch() {
         //make Axios request to endpoint that searches users based off Username or Display name and returns list
+        axios.get(LocalApiUrl + 'UserManagement/UserSearch?Search=' + search).then((response) => {
+            if(response.searchResults)
+                setResultArray(response.searchResults);
+            else
+                console.log(response.errorMessage);
+                alert('Something went wrong!');
+        }).catch((er) => {
+            console.log(er);
+            alert('Server not responding!');
+        })
     }
 
     function handlePromotionRequest(userId) {
